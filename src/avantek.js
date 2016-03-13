@@ -46,4 +46,24 @@ export class Avantek {
 			client.close();
 		});
 	}
+
+	// switch on the light
+	on() {
+		this._sendMessage({
+			cmd: 'switch',
+			arg: {
+				on: 1
+			}
+		});
+	}
+
+	// switch off the light
+	off() {
+		this._sendMessage({
+			cmd: 'switch',
+			arg: {
+				on: 0
+			}
+		});
+	}
 }
