@@ -17,4 +17,33 @@ export class Avantek {
 			sid: `${this._sid}`
 		};
 	}
+
+	// send a message to the device
+	// pMsg: object
+	_sendMessage(pMsg) {
+		// create the request from a copy of base request ...
+		let request = JSON.parse(JSON.stringify(this._baseRequest));
+
+		// ... and add the message into it
+		Object.assign(request, pMsg);
+
+		// stringify the request
+		request = JSON.stringify(request);
+
+		// create the client to send the UDP request
+		let client = dgram.createSocket('udp4');
+
+		// transform the request into a buffer
+		let msg = new Buffer(request);
+
+		// send the request
+		client.send(msg, 0, msg.length, this._port, this._ip, (err, bytes) => {
+			if (err) {
+				throw err;
+			}
+			// reuse the message buffer,
+			// or close client
+			client.close();
+		});
+	}
 }
