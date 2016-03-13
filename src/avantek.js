@@ -21,7 +21,7 @@ export class Avantek {
 		this._status = {};
 		this._status.on = null;
 		this._status.lum = null;
-		this._status.colorTemp = null;
+		this._status.colorTemp = 0;
 		this._status.color = {};
 		this._status.color.r = null;
 		this._status.color.g = null;
@@ -83,6 +83,8 @@ export class Avantek {
 				on: 1
 			}
 		});
+
+		this._status.on = true;
 	}
 
 	// switch off the light
@@ -93,6 +95,8 @@ export class Avantek {
 				on: 0
 			}
 		});
+
+		this._status.on = false;
 	}
 
 	// change the color
@@ -103,6 +107,23 @@ export class Avantek {
 				r, g, b
 			}
 		});
+
+		this._status.color.r = r;
+		this._status.color.g = g;
+		this._status.color.b = b;
+	}
+
+	// change the luminosity (from 0 to 255)
+	changeLum(lum) {
+		this._sendMessage({
+			cmd: 'white',
+			arg: {
+				lum,
+				'color-temp': this._status.colorTemp
+			}
+		});
+
+		this._status.lum = lum;
 	}
 
 	// update the status of the light
