@@ -114,4 +114,19 @@ export class Avantek {
 			});
 		});
 	}
+
+	toString() {
+		return `
+			IP : ${this._ip}
+			Port : ${this._port}
+			Sid : ${this._sid}
+			--------------------------
+			Light is ${this._status.on ? 'ON' : 'OFF'}
+			Lum : ${this._status.lum}
+			Color temp : ${this._status.colorTemp}
+			Color R : ${this._status.color.r}
+			Color G : ${this._status.color.g}
+			Color B : ${this._status.color.b}
+		`.replace(/	/g, '');
+	}
 }
