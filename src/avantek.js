@@ -95,6 +95,16 @@ export class Avantek {
 		});
 	}
 
+	// change the color
+	changeColor(r, g, b) {
+		this._sendMessage({
+			cmd: 'color',
+			arg: {
+				r, g, b
+			}
+		});
+	}
+
 	// update the status of the light
 	// return a promise which is resolved when status is up to date
 	updateStatus() {
