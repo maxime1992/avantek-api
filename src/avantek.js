@@ -146,6 +146,35 @@ export class Avantek {
 		});
 	}
 
+	// run a method at hours:minutes
+	// hours: int
+	// minutes: int
+	// repeat: true (repeat the next day) | false (do not repeat)
+	runMethodAt(pMethod, pHours, pMinutes, pRepeat = false) {
+		let date = null;
+		let hours = null;
+		let minutes = null;
+
+		let i = setInterval(() => {
+			date = new Date();
+			hours = date.getHours();
+			minutes = date.getMinutes();
+
+			if (hours === pHours && minutes === pMinutes) {
+				clearInterval(i);
+
+				pMethod();
+
+				// if repeat, launch the method again the minute after
+				if (pRepeat) {
+					setTimeout(() => {
+						this.runMethodAt(pMethod, pHours, pMinutes, pRepeat);
+					}, 61 * 1000);
+				}
+			}
+		}, 1000);
+	}
+
 	toString() {
 		return `
 			IP : ${this._ip}
