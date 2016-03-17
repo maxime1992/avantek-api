@@ -210,6 +210,10 @@ export class Avantek {
 		}, timeInterval);
 	}
 
+	onProgressiveAt(fromLum, toLum, time, pHours, pMinutes, pRepeat = false) {
+		this.runMethodAt(_ => this.onProgressive(fromLum, toLum, time), pHours, pMinutes, pRepeat);
+	}
+
 	toString() {
 		return `
 			IP : ${this._ip}
