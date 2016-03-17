@@ -185,6 +185,28 @@ export class Avantek {
 		this.runMethodAt(_ => this.off(), pHours, pMinutes, pRepeat);
 	}
 
+	// switch on the light progressively
+	// ex from 0 (min) to 255 (max) in 30s
+	onProgressive(fromLum = 0, toLum = 100, time = 30) {
+		let nbLum = toLum - fromLum;
+		let currentLum = fromLum;
+		let timeInterval = time / nbLum * 1000;
+
+		let interval = setInterval(() => {
+			// change the current luminosity
+			this.changeLum(currentLum);
+
+			// increment luminosity for the next round
+			currentLum += 1;
+
+			// if targeted luminosity has been reached ...
+			if (currentLum > toLum) {
+				// ... stop here
+				clearInterval(interval);
+			}
+		}, timeInterval);
+	}
+
 	toString() {
 		return `
 			IP : ${this._ip}
