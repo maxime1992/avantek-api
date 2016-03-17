@@ -115,6 +115,9 @@ export class Avantek {
 
 	// change the luminosity (from 0 to 255)
 	changeLum(lum) {
+		// if lum is a float, take the closer integer
+		lum = Math.round(lum);
+
 		this._sendMessage({
 			cmd: 'white',
 			arg: {
