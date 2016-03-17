@@ -177,12 +177,12 @@ export class Avantek {
 
 	// switch on the light at a given hour
 	onAt(pHours, pMinutes, pRepeat = false) {
-		this.runMethodAt(_ => this.on, pHours, pMinutes, pRepeat);
+		this.runMethodAt(_ => this.on(), pHours, pMinutes, pRepeat);
 	}
 
 	// switch off the light at a given hour
 	offAt(pHours, pMinutes, pRepeat = false) {
-		this.runMethodAt(_ => this.off, pHours, pMinutes, pRepeat);
+		this.runMethodAt(_ => this.off(), pHours, pMinutes, pRepeat);
 	}
 
 	toString() {
